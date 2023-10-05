@@ -1,19 +1,19 @@
 import { Blog } from 'types/blog.type'
 
-export interface IPostItemProps {
-  post: Blog
-  handleDelete: (postId: string) => void
-  handleStartEditing: (postId: string) => void
+export interface IBlogItemProps {
+  blog: Blog
+  handleDelete: (blogId: string) => void
+  handleStartEditing: (blogId: string) => void
 }
 
-export default function PostItem({ post, handleDelete, handleStartEditing }: IPostItemProps) {
+export default function BlogItem({ blog, handleDelete, handleStartEditing }: IBlogItemProps) {
   return (
     <>
       <div className='group'>
         <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
           <img
-            src={post.featureImage}
-            alt={post.title}
+            src={blog.featureImage}
+            alt={blog.title}
             className='h-full w-full object-cover object-center lg:h-full lg:w-full'
           />
         </div>
@@ -22,10 +22,10 @@ export default function PostItem({ post, handleDelete, handleStartEditing }: IPo
             <h3 className='text-sm text-gray-700'>
               <a href='#'>
                 <span aria-hidden='true' />
-                {post.title}
+                {blog.title}
               </a>
             </h3>
-            <p className='mt-1 text-sm text-gray-500'>{post.description}</p>
+            <p className='mt-1 text-sm text-gray-500'>{blog.description}</p>
           </div>
           <p className='text-sm font-medium text-gray-900'>$35</p>
         </div>
@@ -33,14 +33,14 @@ export default function PostItem({ post, handleDelete, handleStartEditing }: IPo
           <button
             type='button'
             className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded'
-            onClick={() => handleStartEditing(post.id)}
+            onClick={() => handleStartEditing(blog.id)}
           >
             Edit
           </button>
           <button
             type='button'
             className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded ml-2'
-            onClick={() => handleDelete(post.id)}
+            onClick={() => handleDelete(blog.id)}
           >
             Delete
           </button>

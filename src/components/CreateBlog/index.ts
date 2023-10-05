@@ -1,3 +1,3 @@
-import CreatePost from './CreateBlog'
+import CreateBlog from './CreateBlog'
 
-export default CreatePost
+export default CreateBlog

@@ -1,3 +1,3 @@
-import PostList from './PostList'
+import BlogList from './BlogList'
 
-export default PostList
+export default BlogList

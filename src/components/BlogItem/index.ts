@@ -1,3 +1,3 @@
-import PostItem from './BlogItem'
+import BlogItem from './BlogItem'
 
-export default PostItem
+export default BlogItem

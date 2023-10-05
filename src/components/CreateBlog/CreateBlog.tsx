@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { addBlog, cancelEditingBlog, finishEditingBlog } from 'redux/blog.reducer'
 import { RootState } from 'redux/store'
 import { Blog } from 'types/blog.type'
 
-interface ICreatePostProps {}
+interface ICreateBlogProps {}
 
 const initialState: Blog = {
   id: '',
@@ -14,38 +15,36 @@ const initialState: Blog = {
   featureImage: ''
 }
 
-export default function CreatePost(props: ICreatePostProps) {
+export default function CreateBlog(props: ICreateBlogProps) {
   const [formData, setFormData] = useState<Blog>(initialState)
 
   const dispatch = useDispatch()
 
-  const editingPost = useSelector((state: RootState) => state.blog.blogList)
+  const editingBlog = useSelector((state: RootState) => state.blog.editingBlog)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (editingPost) {
-      // dispatch(finishEditingPost(formData))
+    if (editingBlog) {
+      dispatch(finishEditingBlog(formData))
     } else {
       const formDataWithId = { ...formData, id: new Date().toISOString() }
-      // dispatch(addPost(formDataWithId))
+      dispatch(addBlog(formDataWithId))
     }
 
     setFormData(initialState)
   }
 
-  const handleCancelEditingPost = () => {
-    // dispatch(cancelEditingPost())
+  const handleCancelEditingBlog = () => {
+    dispatch(cancelEditingBlog())
   }
 
   useEffect(() => {
-    // setFormData(
-    //   []
-    // )
-  }, [editingPost])
+    setFormData(editingBlog || initialState)
+  }, [editingBlog])
 
   return (
-    <form className='w-full max-w-sm' onSubmit={handleSubmit} onReset={handleCancelEditingPost}>
+    <form className='w-full' onSubmit={handleSubmit} onReset={handleCancelEditingBlog}>
       <div className='flex items-center border-b border-teal-500 py-2'>
         <input
           className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none'
@@ -57,9 +56,8 @@ export default function CreatePost(props: ICreatePostProps) {
         />
       </div>
       <div className='flex items-center border-b border-teal-500 py-2'>
-        <input
+        <textarea
           className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none'
-          type='text'
           placeholder='Description'
           required
           value={formData.description}
@@ -86,7 +84,7 @@ export default function CreatePost(props: ICreatePostProps) {
           onChange={(event) => setFormData((prev) => ({ ...prev, publishDate: event.target.value }))}
         />
       </div>
-      <div className='flex items-center border-b border-teal-500 py-2'>
+      <div className='flex items-center py-2'>
         <input
           id='checked-checkbox'
           type='checkbox'
@@ -101,7 +99,7 @@ export default function CreatePost(props: ICreatePostProps) {
         </div>
       </div>
       <div className='flex items-center py-2'>
-        {editingPost && (
+        {editingBlog && (
           <React.Fragment>
             <button
               type='submit'
@@ -117,7 +115,7 @@ export default function CreatePost(props: ICreatePostProps) {
             </button>
           </React.Fragment>
         )}
-        {!editingPost && (
+        {!editingBlog && (
           <button
             className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded'
             type='submit'
