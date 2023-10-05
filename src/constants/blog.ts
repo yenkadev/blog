@@ -36,5 +36,23 @@ export const initialBlogList: Blog[] = [
       'What kind of bucket list doesn’t include the Great Pyramids of Giza in Egypt? Believe it or not, the Giza pyramids are fairly easy to visit on a day trip from Cairo, the capital of Egypt.',
     featureImage: 'https://theworldtravelguy.com/wp-content/uploads/2019/06/DSCF3940-4n.jpg',
     publishDate: '2023-10-23T11:32'
+  },
+  {
+    id: '5',
+    title: 'Nusa Penida Island In Bali: Travel Guide & How To Visit',
+    published: true,
+    description:
+      'The beautiful, exotic Nusa Penida island lies just 25 kilometers from Bali, the most famous tourist destination in Indonesia.',
+    featureImage: 'https://theworldtravelguy.com/wp-content/uploads/2018/11/DJI_0616-2_1200.jpg',
+    publishDate: '2023-10-23T11:32'
+  },
+  {
+    id: '6',
+    title: '22 Best Things To Do In Japan: What To Do For Fun In Japan',
+    published: true,
+    description:
+      'It’s hard to make a list of the best things to do in Japan, because there are just so many cool and fun activities in this country.',
+    featureImage: 'https://theworldtravelguy.com/wp-content/uploads/2021/04/Japan_01_1200.jpg',
+    publishDate: '2023-10-23T11:32'
   }
 ]

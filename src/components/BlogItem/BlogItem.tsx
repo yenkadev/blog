@@ -27,7 +27,6 @@ export default function BlogItem({ blog, handleDelete, handleStartEditing }: IBl
             </h3>
             <p className='mt-1 text-sm text-gray-500'>{blog.description}</p>
           </div>
-          <p className='text-sm font-medium text-gray-900'>$35</p>
         </div>
         <div className='flex items-center py-2'>
           <button
