@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteBlog, startEditingBlog } from 'redux/blog.reducer'
+import { deleteBlog, startEditingBlog } from 'redux/blog.slice'
 import { RootState } from 'redux/store'
 import BlogItem from '../BlogItem'
 

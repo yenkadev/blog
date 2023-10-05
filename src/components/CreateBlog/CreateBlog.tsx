@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addBlog, cancelEditingBlog, finishEditingBlog } from 'redux/blog.reducer'
+import { addBlog, cancelEditingBlog, finishEditingBlog } from 'redux/blog.slice'
 import { RootState } from 'redux/store'
 import { Blog } from 'types/blog.type'
 

@@ -1,4 +1,5 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
+import { Omit } from '@reduxjs/toolkit/dist/tsHelpers'
 import { initialBlogList } from 'constants/blog'
 import { Blog } from 'types/blog.type'
 
@@ -12,35 +13,27 @@ const initialState: BlogState = {
   editingBlog: null
 }
 
-export const addBlog = createAction<Blog>('blog/addBlog')
-export const deleteBlog = createAction<string>('blog/deleteBlog')
-export const startEditingBlog = createAction<string>('blog/startEditingBlog')
-export const cancelEditingBlog = createAction('blog/cancelEditingBlog')
-export const finishEditingBlog = createAction<Blog>('blog/finishEditingBlog')
-
-const blogReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(addBlog, (state, action) => {
-      const blog = action.payload
-      state.blogList.push(blog)
-    })
-    .addCase(deleteBlog, (state, action) => {
+const blogSlice = createSlice({
+  name: 'blog',
+  initialState: initialState,
+  reducers: {
+    deleteBlog: (state, action: PayloadAction<string>) => {
       const blogId = action.payload
       const foundBlogIndex = state.blogList.findIndex((blog) => blog.id === blogId)
 
       if (foundBlogIndex !== -1) {
         state.blogList.splice(foundBlogIndex, 1)
       }
-    })
-    .addCase(startEditingBlog, (state, action) => {
+    },
+    startEditingBlog: (state, action: PayloadAction<string>) => {
       const blogId = action.payload
       const foundBlog = state.blogList.find((blog) => blog.id === blogId) || null
       state.editingBlog = foundBlog
-    })
-    .addCase(cancelEditingBlog, (state) => {
+    },
+    cancelEditingBlog: (state) => {
       state.editingBlog = null
-    })
-    .addCase(finishEditingBlog, (state, action) => {
+    },
+    finishEditingBlog: (state, action: PayloadAction<Blog>) => {
       const blogId = action.payload.id
       state.blogList.some((blog, index) => {
         if (blog.id === blogId) {
@@ -53,7 +46,23 @@ const blogReducer = createReducer(initialState, (builder) => {
       })
 
       state.editingBlog = null
-    })
+    },
+    addBlog: {
+      reducer: (state, action: PayloadAction<Blog>) => {
+        const blog = action.payload
+        state.blogList.push(blog)
+      },
+      prepare: (blog: Omit<Blog, 'id'>) => ({
+        payload: {
+          ...blog,
+          id: nanoid()
+        }
+      })
+    }
+  }
 })
+
+export const { addBlog, cancelEditingBlog, deleteBlog, startEditingBlog, finishEditingBlog } = blogSlice.actions
+const blogReducer = blogSlice.reducer
 
 export default blogReducer
